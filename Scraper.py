@@ -72,5 +72,5 @@ def genPickleFromUrlList(urlList, pickleFileName):
     pickle.dump(urlList, pickleFileName)
     
 #pprint.PrettyPrinter(indent=3).pprint(getWordAndFreq(getTextFromHtml(genUrl('smu'))))
-#pprint.PrettyPrinter(indent=3).pprint(getWordAndFreq(getTextFromHtml(genUrl('engineering'))))
+pprint.PrettyPrinter(indent=3).pprint(getWordAndFreq(getTextFromHtml(genUrl('engineering'))))
 pprint.PrettyPrinter(indent=3).pprint(getWordAndFreq(getTextFromHtml(genUrl('business'))))
