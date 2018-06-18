@@ -40,21 +40,14 @@ __SMU_URL__ = "http://www.smu.edu"
 def genUrl(college):
     return '%s/%s' % (__SMU_URL__, __SMU_COLLEGES__[college])
 
-#Method takes a URL and a filename argument, prints the contents to a local HTML file and returns a string object containing the HTML code
+#Method takes a URL argument and returns a <class 'bytes'> object containing the HTML code (content AND markups)
 def getHtml(someUrl):
-    #get the URL contents
     urlObj = urllib.request.Request(someUrl)
     urlReader = urllib.request.urlopen(urlObj)
     urlContentBytes = urlReader.read()
-    #urlContentBytes.decode("ASCII") keeps generating error messages
-    #passing the urlContentBytes object directly to BeautifulSoup also generates an encoding error so this is my workaround.
-    #i.e. typecast to string and remove first two characters - b' then reformat whitespace characters
-    urlContentString = (str(urlContentBytes)[2:].replace('\\r\\n','\n'))
-    urlContentString = urlContentString.replace('\\n', '\n')
-    urlContentString = urlContentString.replace('\\t', '\t')
-    return urlContentString
+    return urlContentBytes
 
-#Method takes a URL, strips out the scripts, CSS, HTML tags and returns only the text
+#Method takes a URL, strips out the scripts, CSS, HTML tags and returns only the text content
 def getTextFromHtml(someUrl):
     webText = getHtml(someUrl)
     soup = BeautifulSoup(webText,"html.parser")
@@ -80,4 +73,4 @@ def genPickleFromUrlList(urlList, pickleFileName):
     
 #pprint.PrettyPrinter(indent=3).pprint(getWordAndFreq(getTextFromHtml(genUrl('smu'))))
 #pprint.PrettyPrinter(indent=3).pprint(getWordAndFreq(getTextFromHtml(genUrl('engineering'))))
-pprint.PrettyPrinter(indent=3).pprint(getWordAndFreq(getTextFromHtml(genUrl('education'))))
+pprint.PrettyPrinter(indent=3).pprint(getWordAndFreq(getTextFromHtml(genUrl('business'))))
